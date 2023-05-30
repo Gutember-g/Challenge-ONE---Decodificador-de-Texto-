@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Codificador-Decodificador</title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <a class="alura" href="https://www.alura.com.br/"><img src="Vector.png"></a>
+            <img class="logo" src="Logo.png">
+            <h1 class="titulo">CriptoG</h1>
+            <h2 class="sub-titulo">Mais Seguraça em suas Mensagens</h2>
+        </header>
+        <main>
+            <div class="criptografia">
+                <form>
+                    <textarea cols="100" rows="25" id="texto" class="input" wrap="hard" placeholder="Digite seu texto" oninput="checkInput(this)"></textarea>
+                    <p class="informacao"><img src="exclamacao.png"> letras minusculas e sem acento</p>
+                    <input id="botao1" class="botao1" type= "button" value="Criptografar" onclick="aparecer()">
+                    <input id="botao2" class="botao2" type="button" value="Descriptografar" onclick="aparecer2()">
+                </form>
+            </div>
+            <div  class="resultado">
+                <div id="desenho">
+                    <img  class="desenho" src="procura.jpg">
+                    <h3>Nenhuma Mensagem Encontrada</h3>
+                    <p class="desenho">Digite um texto que você deseja Criptografar ou Descriptografar</p>
+                </div>
+                <form id="caixa">
+                    <textarea cols="50" rows="25" style="resize: none;" id="resultado" class="input-padrao" wrap="hard"></textarea>
+                    <input id="copiar" class="copiar" type="button" value="Copiar" onclick="copy()">
+                </form>                
+            </div>
+            <script>
+                mostraDesenho();
+                var lista= [];
+
+                function checkInput(textarea) {
+                    /* função para não deixar digitar letras maiusculas e caracteres especiais */
+                    var regex = /[A-Z!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+                    if (regex.test(textarea.value)) {
+                        alert("Não é permitido inserir letras maiúsculas ou caracteres especiais neste campo.");
+                        textarea.value = textarea.value.replace(regex, '');
+                    }
+                }
+
+                function pegarTexto(){
+                    /* funcão para pegar o texto e colocar na lista*/
+                    let textArea = document.getElementById("texto");
+                    let lines = textArea.value;
+                    for (let i = 0; i < lines.length; i++) {
+                        lista.push(lines[i]);
+                    }
+                    return lista;
+                }
+             
+                
+
+                function criptografar(){
+                    for(var i = 0; i < lista.length; i++){
+                        if(lista[i] == "e"){
+                            lista.splice(i, 1, "enter");
+                            
+                        }
+                        if(lista[i] == "i"){
+                            lista.splice(i, 1, "imes");
+                            
+                        }
+                        if(lista[i] == "a"){
+                            lista.splice(i, 1, "ai");
+                            
+                        }
+                        if(lista[i] == "o"){
+                            lista.splice(i, 1, "ober");
+                            
+                        }
+                        if(lista[i] == "u"){
+                            lista.splice(i, 1, "ufat");
+                        }
+                    }
+                    return lista
+                }
+
+                function desCriptografar(){
+                    for(var i = 0; i < lista.length; i++){
+                        if(lista[i] == "e" ){
+                            lista.splice(i, 5, "e");
+                        }
+                        if(lista[i] == "o" ){
+                            lista.splice(i, 4, "o");
+                        }
+                         if(lista[i] == "i" ){
+                            lista.splice(i, 4, "i");
+                        }
+                         if(lista[i] == "a" ){
+                            lista.splice(i, 2, "a");
+                        }
+                         if(lista[i] == "u" ){
+                            lista.splice(i, 4, "u");
+                        }
+                    }
+                    return lista
+                }
+
+                function mostrarLista(){
+                    /* função para mostrar texto criptografado no resultado*/
+                    criptografar();
+                    document.getElementById("resultado").value = lista.join("");
+
+                }
+
+                function mostrarLista2(){
+                    /* função para mostrar texto descriptografado no resultado*/
+                    desCriptografar();
+                    document.getElementById("resultado").value = lista.join("");
+                    
+                }
+            
+                function mostraDesenho() {
+                    /* função para mostra o desenho e esconder caixa de texto */
+                  document.getElementById("caixa").style.display = "none";
+                }
+
+                function aparecer(){
+                    /* quando aperto botão aparece a caixa de texto e o texto criptografado */
+                    document.getElementById("caixa").style.display= "block";
+                    document.getElementById("desenho").style.display = "none";
+                    pegarTexto();
+                    mostrarLista(); 
+                    document.getElementById("texto").value= " ";
+                    lista = [];
+  
+                }
+
+                function aparecer2(){
+                    /* quando aperto botão aparece a caixa de texto e o texto criptografado */
+                    document.getElementById("caixa").style.display= "block";
+                    document.getElementById("desenho").style.display = "none";
+                    pegarTexto();
+                    mostrarLista2(); 
+                    document.getElementById("texto").value= " ";
+                    lista = [];
+                
+                }
+
+                function copy() {
+                    let copyText = document.querySelector("#resultado");
+                    copyText.select();
+                    document.execCommand("copy");
+                    document.getElementById("resultado").value= " ";
+                    lista= [];
+                }
+                            
+
+                
+            </script>
+        </main>
+        <footer>
+            <div class="rodape">
+                <p class="copyright">&copy;Copyright Gutemberg Batista da Silva - 2023</p>
+                <a class="linkedin" href="https://www.linkedin.com/in/gutemberg-batista-24058858/"><img src="linkedIn_PNG6.png"></a>
+                <a class="github" href="https://github.com/Gutember-g"><img src="Github.jpg"></a>
+            </div>
+            
+        </footer>
+    </body>
+</html>
